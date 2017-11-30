@@ -1,0 +1,56 @@
+.course_page {
+	& > h3 {
+		margin-top: 0;
+		color: #55518a;
+	}
+
+	.alert {
+		display: none;
+	}
+
+	p,
+	label {
+		color: #555;
+	}
+
+	.credit-ticker {
+		width: 190px;
+		padding: 10px;
+		float: right;
+		background-color: #ffc000;
+		border-top-left-radius: 15px;
+		font-weight: bold;
+
+		display: flex;
+		justify-content: space-between;
+
+		&.total-credits {
+			position: relative;
+			top: 1px;
+		}
+
+		&.student-credits {
+			border-radius: 0;
+			margin: -15px -16px 10px 10px;
+		}
+	}
+
+	.tab-content {
+		border: 1px solid #ddd;
+		border-top: none;
+		padding: 15px;
+
+		.intro {
+			padding: 5px 10px 10px 10px;
+		}
+
+		.control {
+			display: flex;
+			justify-content: space-between;
+
+			select {
+				width: auto;
+			}
+		}
+	}
+}

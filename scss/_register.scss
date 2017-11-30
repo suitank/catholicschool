@@ -1,0 +1,18 @@
+.alert {
+  display: none;
+}
+#signup_form {
+	label {
+		margin-top: 15px;
+	}
+
+  button {
+    font-size: 16px;
+  }
+
+  .controll-bar {
+  	display: flex;
+  	justify-content: space-between;
+  	margin-top: 40px;
+  }
+}

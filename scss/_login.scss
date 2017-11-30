@@ -1,0 +1,14 @@
+.alert {
+  display: none;
+}
+#login_form {
+  button {
+    font-size: 16px;
+  }
+
+  .controll-bar {
+  	display: flex;
+  	justify-content: space-between;
+  	margin-top: 40px;
+  }
+}

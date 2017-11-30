@@ -1,0 +1,46 @@
+@import 'style-variables';
+@import 'style-components';
+@import 'style-mixins';
+
+html,
+body {
+  min-height: 100%;
+  background-color: #fff;
+  font-weight: 400;
+}
+a {
+	text-decoration: none !important;
+}
+ 
+// index.php
+@import 'index';
+// login
+@import 'login';
+// register
+@import 'register';
+// action
+@import 'action';
+// household
+@import 'household';
+// household
+@import 'student';
+// course credit
+@import 'course';
+// supplemental materials
+@import 'supplement';
+// application summary
+@import 'summary';
+// submission & payments
+@import 'submission';
+
+@media (min-width: 1200px) {
+	
+}
+
+@media (max-width: 1199px) {
+	
+}
+
+@media (max-width: 575px) {
+	
+}
