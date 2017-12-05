@@ -6,7 +6,7 @@ if ($_SERVER['REQUEST_METHOD'] != 'POST') {
 	exit(json_encode($response));
 }
 
-include 'utility_functions.php';
+include_once 'utility_functions.php';
 
 $data = array();
 $data['Email1'] = test_input($_POST['Email1']);
@@ -22,7 +22,7 @@ $data['Phone1'] = test_input($_POST['Phone1']);
 $data['Phone2'] = test_input($_POST['Phone2']);
 $data['Email2'] = test_input($_POST['Email2']);
 
-include 'model_functions.php';
+include_once 'model_functions.php';
 
 setHousehold($data);
 

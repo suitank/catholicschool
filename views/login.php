@@ -113,7 +113,7 @@
               },
               dataType: "json",
               success: function(response) {
-                $('#Account_Id').val(response.Account_Id);
+                // $('#Account_Id').val(response.Account_Id);
                 $('#login_form').submit();
               },
               error: function(xhr, status, error) {

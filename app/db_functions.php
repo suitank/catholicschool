@@ -1,5 +1,7 @@
 <?php
 
+include_once 'utility_functions.php';
+
 // Get an user record from user table by email
 
 function getUser($email) {

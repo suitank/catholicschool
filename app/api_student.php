@@ -1,51 +1,55 @@
 <?php
 
-include 'utility_functions.php';
-include 'model_functions.php';
+include_once 'utility_functions.php';
+include_once 'model_functions.php';
 
 $proc = $_REQUEST['proc'];
 $status = true;
 $response = array();
 
+if(!isset($_SESSION)){
+	session_start();
+}
+
 if ($proc == 'addStudent') {
 	$data = array();
-	$data['email'] = $_POST['email'];
-	$data['Account_Id'] = $_POST['Account_Id'];
-	$data['First_Name'] = $_POST['studentFirstName'];
-	$data['Middle_Name'] = $_POST['studentMiddleName'];
-	$data['Last_Name'] = $_POST['studentLastName'];
-	$data['Grade_Id'] = $_POST['studentGradeId'];
-	$data['Birth_Date'] = $_POST['studentBirthDate'];
-	$data['DiplomaType_Id'] = $_POST['studentDiplomaTypeId'];
+	$data['email'] = test_input($_POST['email']);
+	$data['Account_Id'] = test_input($_SESSION['account_id']);
+	$data['First_Name'] = test_input($_POST['studentFirstName']);
+	$data['Middle_Name'] = test_input($_POST['studentMiddleName']);
+	$data['Last_Name'] = test_input($_POST['studentLastName']);
+	$data['Grade_Id'] = test_input($_POST['studentGradeId']);
+	$data['Birth_Date'] = test_input($_POST['studentBirthDate']);
+	$data['DiplomaType_Id'] = test_input($_POST['studentDiplomaTypeId']);
 
 	$status = insertStudent($data);
 } else if ($proc == 'updateStudent') {
 	$data = array();
-	$data['Student_Id'] = $_POST['studentId'];
-	$data['First_Name'] = $_POST['studentFirstName'];
-	$data['Middle_Name'] = $_POST['studentMiddleName'];
-	$data['Last_Name'] = $_POST['studentLastName'];
-	$data['Grade_Id'] = $_POST['studentGradeId'];
-	$data['Birth_Date'] = $_POST['studentBirthDate'];
-	$data['DiplomaType_Id'] = $_POST['studentDiplomaTypeId'];
+	$data['Student_Id'] = test_input($_POST['studentId']);
+	$data['First_Name'] = test_input($_POST['studentFirstName']);
+	$data['Middle_Name'] = test_input($_POST['studentMiddleName']);
+	$data['Last_Name'] = test_input($_POST['studentLastName']);
+	$data['Grade_Id'] = test_input($_POST['studentGradeId']);
+	$data['Birth_Date'] = test_input($_POST['studentBirthDate']);
+	$data['DiplomaType_Id'] = test_input($_POST['studentDiplomaTypeId']);
 
 	$status = updateStudent($data);
 } else if ($proc == 'removeStudent') {
-	$id = $_POST['studentId'];
+	$id = test_input($_POST['studentId']);
 	
 	$status = removeStudent($id);
 } else if ($proc == 'revertStudent') {
-	$ids = $_POST['studentIds'];
+	$ids = test_input($_POST['studentIds']);
 
 	$status = revertStudent($ids);
 } else if ($proc == 'deleteStudent') {
-	$id = $_POST['studentId'];
+	$id = test_input($_POST['studentId']);
 	
 	$status = deleteStudent($id);
 } else if ($proc == 'getNotEnrolledStudent') {
-	$email = $_POST['email'];
+	$email = test_input($_POST['email']);
 
-	$stmt = getStudent($_POST['Account_Id'], false);
+	$stmt = getStudent(test_input($_SESSION['account_id']), false);
 	if ($stmt->rowCount()) {
 		$response['statusCode'] = http_response_code();
 		$response['message'] = 'Success';

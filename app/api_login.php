@@ -1,9 +1,10 @@
 <?php
 
-include 'model_functions.php';
+include_once 'utility_functions.php';
+include_once 'model_functions.php';
 
-$email = $_POST['email'];
-$password = $_POST['password'];
+$email = test_input($_POST['email']);
+$password = test_input($_POST['password']);
 
 $stmt = loginCheck($email, $password);
 

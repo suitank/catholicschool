@@ -1,17 +1,22 @@
 <?php
-  if ($_POST["type"] == "set") {
-    session_start();
-    $_SESSION["email"] = $_POST["email"];
-    $_SESSION["account_id"] = $_POST["account_id"];
+  include_once 'utility_functions.php';
+
+  if (test_input($_POST["type"]) == "set") {
+    if(!isset($_SESSION)){
+      session_start();
+    }
+    $_SESSION["email"] = test_input($_POST["email"]);
+    $_SESSION["account_id"] = test_input($_POST["account_id"]);
     // var_dump($_SESSION);
 
   }
   else {
-    session_start();
+    if(!isset($_SESSION)){
+      session_start();
+    }
     
     session_unset(); 
     session_destroy(); 
-
     // header( 'Location: /views/login.php' ) ;
   }
     // session_start();

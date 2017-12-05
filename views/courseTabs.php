@@ -1,8 +1,8 @@
 <?php
+include_once '../app/utility_functions.php';
+include_once '../app/model_functions.php';
 
-include '../app/model_functions.php';
-
-$studentEmail = $_POST['email'];
+$studentEmail = test_input($_POST['email']);
 $stmt = getStudent($studentEmail, true);
 
 $res = "<ul id='courseNavTab' class='nav nav-tabs'>";

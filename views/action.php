@@ -1,34 +1,39 @@
 <?php
+include_once '../app/utility_functions.php';
 
-//check session
-session_start();
-if (!isset($_SESSION["email"])) {
-  header( 'Location: /views/login.php' ) ;
-}
+  //check session
+  if(!isset($_SESSION)){
+    session_start();
+  }
+  if (!isset($_SESSION["email"])) {
+    header( 'Location: /views/login.php' ) ;
+  }
 
-include '../app/model_functions.php';
+  include_once '../app/model_functions.php';
 
-error_reporting( E_ALL | E_STRICT );
-session_start();
+  error_reporting( E_ALL | E_STRICT );
+  if(!isset($_SESSION)){
+    session_start();
+  }
 
-// get the email parameter and query the dabatase. If does not exist, a new application will be created.
-$Email1 = $_POST["email"];
-// Contact Person
-$rows = getContactPerson($Email1);
-// var_dump($rows);
-$ContactPerson_Id = $rows ? $rows[0]["ContactPerson_Id"] : '';
-$First_Name = $rows ? $rows[0]["First_Name"] : '';
-$Last_Name = $rows ? $rows[0]["Last_Name"] : '';
-$Address_1 = $rows ? $rows[0]["Address_1"] : '';
-$Address_2 = $rows ? $rows[0]["Address_2"] : '';
-$City = $rows ? $rows[0]["City"] : '';
-$State = $rows ? $rows[0]["State"] : '';
-$Zip= $rows ? $rows[0]["Zip"] : '';
-$Country = $rows ? $rows[0]["Country"] : '';
-$Phone1 = $rows ? $rows[0]["Phone1"] : '';
-$Phone2 = $rows ? $rows[0]["Phone2"] : '';
-$Email2 = $rows ? $rows[0]["Email2"] : '';
-$Account_Id = $_SESSION["account_id"];
+  // get the email parameter and query the dabatase. If does not exist, a new application will be created.
+  $Email1 = test_input($_POST["email"]);
+
+  // Contact Person
+  $rows = getContactPerson($Email1);
+  $ContactPerson_Id = $rows ? $rows[0]["ContactPerson_Id"] : '';
+  $First_Name = $rows ? $rows[0]["First_Name"] : '';
+  $Last_Name = $rows ? $rows[0]["Last_Name"] : '';
+  $Address_1 = $rows ? $rows[0]["Address_1"] : '';
+  $Address_2 = $rows ? $rows[0]["Address_2"] : '';
+  $City = $rows ? $rows[0]["City"] : '';
+  $State = $rows ? $rows[0]["State"] : '';
+  $Zip= $rows ? $rows[0]["Zip"] : '';
+  $Country = $rows ? $rows[0]["Country"] : '';
+  $Phone1 = $rows ? $rows[0]["Phone1"] : '';
+  $Phone2 = $rows ? $rows[0]["Phone2"] : '';
+  $Email2 = $rows ? $rows[0]["Email2"] : '';
+  $Account_Id = $_SESSION["account_id"];
 ?>
 
 <!DOCTYPE html>
@@ -51,7 +56,7 @@ $Account_Id = $_SESSION["account_id"];
   <script src="../js/daterangepicker.js"></script>
   <script>
     let alertMessage = 'Sorry, some unknown error occurred! Please contact us at <strong>support@ada.school</strong> to resolve this problem.';
-    let Account_Id = "<?php echo $_POST['Account_Id'];?>";
+    let Account_Id = "<?php echo test_input($_POST['Account_Id']);?>";
     //This script handle the tab's navigation
     $(document).ready(function() {
       $("div.bhoechie-tab-menu>div.list-group>a").click(function(e) {
@@ -100,7 +105,7 @@ $Account_Id = $_SESSION["account_id"];
     </div>
   </header>
 
-  <input type="hidden" id="email" value="<?php echo $_POST['email'];?>">
+  <input type="hidden" id="email" value="<?php echo test_input($_POST['email']);?>">
   <input type="hidden" id="account_id" value="<?php echo $Account_Id;?>">
   
   <section>
@@ -137,37 +142,37 @@ $Account_Id = $_SESSION["account_id"];
         <div class="col-sm-8 col-md-8 col-lg-7 bhoechie-tab">
             <!-- Introduction section -->
             <div class="bhoechie-tab-content active">
-              <?php include 'introduction.php'; ?>
+              <?php include_once 'introduction.php'; ?>
             </div>
 
             <!-- Household Information section -->
             <div class="bhoechie-tab-content">
-              <?php include 'household.php'; ?>
+              <?php include_once 'household.php'; ?>
             </div>
 
             <!-- Student section -->
             <div class="bhoechie-tab-content">
-              <?php include 'student.php'; ?>
+              <?php include_once 'student.php'; ?>
             </div>
 
             <!-- Courses Credits section -->
             <div class="bhoechie-tab-content">
-              <?php include 'course.php'; ?>
+              <?php include_once 'course.php'; ?>
             </div>
 
             <!-- Supplements section -->
             <div class="bhoechie-tab-content">
-              <?php include 'supplement.php'; ?>
+              <?php include_once 'supplement.php'; ?>
             </div>
 
             <!-- Summary section -->
             <div class="bhoechie-tab-content">
-              <?php include 'summary.php'; ?>
+              <?php include_once 'summary.php'; ?>
             </div>
 
             <!-- Submission & Payments section -->
             <div class="bhoechie-tab-content">
-              <?php include 'submission.php'; ?>
+              <?php include_once 'submission.php'; ?>
             </div>
         </div>
       </div>

@@ -1,18 +1,18 @@
 <?php
-
-include 'db_functions.php';
+include_once 'utility_functions.php';
+include_once 'db_functions.php';
 
 //receiving the parameters by query string
 
-$fatherName = ($_GET['fatherName']);
-$fatherFamilyName = ($_GET['fatherFamilyName']);
-$fatherResidesAtHome = ($_GET['fatherResidesAtHome']);
-$fatherDeceased = ($_GET['fatherDeceased']);
-$motherName = ($_GET['motherName']);
-$motherFamilyName = ($_GET['motherFamilyName']);
-$motherResidesAtHome = ($_GET['motherResidesAtHome']);
-$motherDeceased = ($_GET['motherDeceased']);
-$email = ($_GET['email']);
+$fatherName = test_input($_GET['fatherName']);
+$fatherFamilyName = test_input($_GET['fatherFamilyName']);
+$fatherResidesAtHome = test_input($_GET['fatherResidesAtHome']);
+$fatherDeceased = test_input($_GET['fatherDeceased']);
+$motherName = test_input($_GET['motherName']);
+$motherFamilyName = test_input($_GET['motherFamilyName']);
+$motherResidesAtHome = test_input($_GET['motherResidesAtHome']);
+$motherDeceased = test_input($_GET['motherDeceased']);
+$email = test_input($_GET['email']);
 
 $resultUpdateUser = FALSE;
 $resultUpdateUser = updateUser($email, $fatherName, $fatherFamilyName, $motherName, $motherFamilyName, $fatherResidesAtHome, $fatherDeceased, $motherResidesAtHome, $motherDeceased);

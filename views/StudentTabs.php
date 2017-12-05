@@ -1,8 +1,8 @@
 <?php
+include_once '../app/utility_functions.php';
+include_once '../app/model_functions.php';
 
-include '../app/model_functions.php';
-
-$studentAccountId = $_POST['account_id']; //email
+$studentAccountId = test_input($_POST['account_id']); //email
 $stmt = getStudent($studentAccountId, true); // get student data
 
 $res = "<ul id='studenteNavTab' class='nav nav-tabs'>";

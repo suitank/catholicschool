@@ -159,7 +159,6 @@
         dataType: "json",
         success: function(response) {
           
-          // if (response.double == true) {
           if (response.status == 101) {
 
             $('#signup_form #email').focus();
@@ -170,13 +169,31 @@
           } else if (response.status == 500) {
             $('#alert500 .alert-content').html(response.message);
             $('#alert500').slideDown("slow");
-          // } else if (response.status == true) {
           } else if (response.status == 200) {
             
             $('#Account_Id').val(response.Account_Id);
             $('#alert200').slideDown("slow");
+
+
             setTimeout(function() {
-              $('#signup_form').submit();
+              $.ajax({
+                type: "post",
+                url: "../app/api_session.php",
+                data: {
+                  type: "set",
+                  email: response.email,
+                  account_id: response.Account_Id
+                },
+                dataType: "json",
+                success: function(response) {
+                  $('#signup_form').submit();
+                },
+                error: function(xhr, status, error) {
+                  var err = xhr.responseText;
+                  alert(err);
+                  $('.alert-danger').slideDown("slow");
+                }
+              })
             }, 2000);
           } else {
             // $('#alert-connect').slideDown("slow");
