@@ -45,7 +45,7 @@ if ($proc == 'addStudent') {
 } else if ($proc == 'getNotEnrolledStudent') {
 	$email = $_POST['email'];
 
-	$stmt = getStudent($email, false);
+	$stmt = getStudent($_POST['Account_Id'], false);
 	if ($stmt->rowCount()) {
 		$response['statusCode'] = http_response_code();
 		$response['message'] = 'Success';

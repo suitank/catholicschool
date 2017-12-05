@@ -27,8 +27,8 @@
   });
 
   function showStudent() {
-    let email = $('#email').val();
-    if (email == "") {
+    let account_id = $('#account_id').val();
+    if (account_id == "") {
       $("#StudentTabsPlaceHolder").html("");
       return;
     }
@@ -37,7 +37,7 @@
       type: "post",
       url: "StudentTabs.php",
       data: {
-        email: email
+        account_id: account_id
       },
       success: function(result) {
         let nth = $('#studenteNavTab li.active').index()+1;
@@ -124,10 +124,12 @@
     }, 3000);
     return false;
   }
+
   function addStudent() {
     if (!isValidAddStudent()) return;
 
     let email = $('#email').val();
+    let Account_Id = $.trim($('#account_id').val());
     let studentFirstName = $.trim($('#studentAdd #studentFirstName').val());
     let studentMiddleName = $.trim($('#studentAdd #studentMiddleName').val());
     let studentLastName = $.trim($('#studentAdd #studentLastName').val());

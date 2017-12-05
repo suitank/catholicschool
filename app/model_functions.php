@@ -6,7 +6,7 @@ function loginCheck($email, $password) {
 
   $stmt = $db->prepare("SELECT * FROM account AS a
     LEFT JOIN wp2233618536db_32463.wp_users AS w ON a.Account_Id=w.ID
-    WHERE w.user_email=? AND w.user_pass=? AND a.active=1");
+    WHERE w.user_email=? AND w.user_pass=?");
   $stmt->execute(array($email, $password));
 
   $db = null;
@@ -42,7 +42,7 @@ function signup($email, $password) {
 
         $data['message'] = $insert_wp_users_ID;
         
-        $st3 = $db->prepare("INSERT INTO account SET Account_Id=:wp_users_ID, active='1'");
+        $st3 = $db->prepare("INSERT INTO account SET Account_Id=:wp_users_ID");
         
         try { 
           $st3->execute(array(':wp_users_ID' => $insert_wp_users_ID));
@@ -146,20 +146,18 @@ function setHousehold($params) {
 }
 
 // get student data (enrolled: Status='1', not enrolled: Status='0')
-function getStudent($email, $enrollStatus) {
+function getStudent($account_id, $enrollStatus) {
   require("db_connection.php");
 
   $stmt = $db->prepare("SELECT s.*, g.Description AS Grade, d.Name AS DiplomaType FROM student AS s 
-    LEFT JOIN account AS a ON s.Account_Id=a.Account_Id 
-    LEFT JOIN wp2233618536db_32463.wp_users AS w ON a.Account_Id=w.ID
     LEFT JOIN grade AS g ON s.Grade_Id=g.Grade_Id
     LEFT JOIN diplomatype AS d ON s.DiplomaType_Id=d.DiplomaType_Id
-    WHERE w.user_email=? AND s.Status=?
+    WHERE s.Account_Id=? AND s.Status=?
   ");
   if ($enrollStatus)
-    $stmt->execute(array($email, 1));
+    $stmt->execute(array($account_id, 1));
   else
-    $stmt->execute(array($email, 0));
+    $stmt->execute(array($account_id, 0));
 
   $db = null;
   return $stmt;
@@ -183,6 +181,7 @@ function insertStudent($data) {
   $rows = getContactPerson($data['email']);
   $ParentOrGuardian_1_Id = $rows[0]['ContactPerson_Id'];
   $ParentOrGuardian_2_Id = $rows[0]['ContactPerson_Id'];
+  // var_dump($row);
 
   $stmt = $db->prepare("INSERT INTO student SET
             Account_Id = :Account_Id,

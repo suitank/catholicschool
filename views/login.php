@@ -102,8 +102,27 @@
         dataType: "json",
         success: function(response) {
           if (response.statusCode == '200' && response.message == 'Success') {
-            $('#Account_Id').val(response.Account_Id);
-            $('#login_form').submit();
+
+            $.ajax({
+              type: "post",
+              url: "../app/api_session.php",
+              data: {
+                type: "set",
+                email: response.email,
+                account_id: response.Account_Id
+              },
+              dataType: "json",
+              success: function(response) {
+                $('#Account_Id').val(response.Account_Id);
+                $('#login_form').submit();
+              },
+              error: function(xhr, status, error) {
+                var err = xhr.responseText;
+                alert(err);
+                $('.alert-danger').slideDown("slow");
+              }
+            })
+            
           } else {
             $('.alert-warning').slideDown("slow");
             setTimeout(function() {

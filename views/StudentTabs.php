@@ -2,8 +2,8 @@
 
 include '../app/model_functions.php';
 
-$studentEmail = $_POST['email']; //email
-$stmt = getStudent($studentEmail, true); // get student data
+$studentAccountId = $_POST['account_id']; //email
+$stmt = getStudent($studentAccountId, true); // get student data
 
 $res = "<ul id='studenteNavTab' class='nav nav-tabs'>";
 $tabContent = "";

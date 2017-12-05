@@ -13,6 +13,7 @@ if ($stmt->rowCount()) {
 	$response['statusCode'] = http_response_code();
 	$response['message'] = 'Success';
 	$response['Account_Id'] = $rows[0]['Account_Id'];
+	$response['email'] = $email;
 } else {
 	$response['statusCode'] = http_response_code();
 	$response['message'] = 'Failed';

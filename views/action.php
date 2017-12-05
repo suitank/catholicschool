@@ -1,13 +1,21 @@
 <?php
 
+//check session
+session_start();
+if (!isset($_SESSION["email"])) {
+  header( 'Location: /views/login.php' ) ;
+}
+
 include '../app/model_functions.php';
 
 error_reporting( E_ALL | E_STRICT );
+session_start();
 
 // get the email parameter and query the dabatase. If does not exist, a new application will be created.
 $Email1 = $_POST["email"];
 // Contact Person
 $rows = getContactPerson($Email1);
+// var_dump($rows);
 $ContactPerson_Id = $rows ? $rows[0]["ContactPerson_Id"] : '';
 $First_Name = $rows ? $rows[0]["First_Name"] : '';
 $Last_Name = $rows ? $rows[0]["Last_Name"] : '';
@@ -20,6 +28,7 @@ $Country = $rows ? $rows[0]["Country"] : '';
 $Phone1 = $rows ? $rows[0]["Phone1"] : '';
 $Phone2 = $rows ? $rows[0]["Phone2"] : '';
 $Email2 = $rows ? $rows[0]["Email2"] : '';
+$Account_Id = $_SESSION["account_id"];
 ?>
 
 <!DOCTYPE html>
@@ -54,6 +63,30 @@ $Email2 = $rows ? $rows[0]["Email2"] : '';
         $("div.bhoechie-tab>div.bhoechie-tab-content").eq(index).addClass("active");
       });
     });
+
+    function logout() {
+      destroy_session();
+    }
+
+    function destroy_session(){
+      $.ajax({
+        type: "post",
+        url: "../app/api_session.php",
+        data: {
+          type: "remove"
+        },
+        dataType: "json",
+        success: function(response) {
+          console.log("DESTROY SUCCESS");
+          window.location = "/views/login.php";
+        },
+        error: function(xhr, status, error) {
+          var err = xhr.responseText;
+          alert(err);
+          $('.alert-danger').slideDown("slow");
+        }
+      })
+    }
   </script>
 </head>
 <body>
@@ -68,6 +101,7 @@ $Email2 = $rows ? $rows[0]["Email2"] : '';
   </header>
 
   <input type="hidden" id="email" value="<?php echo $_POST['email'];?>">
+  <input type="hidden" id="account_id" value="<?php echo $Account_Id;?>">
   
   <section>
     <div class="container">
@@ -94,6 +128,9 @@ $Email2 = $rows ? $rows[0]["Email2"] : '';
             </a>
             <a href="#" class="list-group-item text-left">
               <h4 class="glyphicon glyphicon-credit-card"></h4> <span>Submission & Payments</span>
+            </a>
+            <a href="#" onclick="logout()" class="list-group-item text-left">
+              <h4 class="glyphicon glyphicon-log-out"></h4> <span>Log out</span>
             </a>
           </div>
         </div>

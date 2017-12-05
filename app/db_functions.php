@@ -80,22 +80,22 @@ function insertUser($email, $fatherName, $fatherFamilyName, $motherName, $mother
 
 // Get one or more student record from student table by email
 
-function getStudent($email) {
+function getStudent($account_id) {
 
   require("db_connection.php");
 
-  $sql = "SELECT * FROM student WHERE email = '{$email}' AND enroll_status = 1";
+  $sql = "SELECT * FROM student WHERE Account_Id = '{$account_id}' AND enroll_status = 1";
 
   $result = $conn->query($sql);
   $conn->close();
   return $result;
 }
 
-function getNotEnrolledStudent($email) {
+function getNotEnrolledStudent($account_id) {
 
   require("db_connection.php");
 
-  $sql = "SELECT * FROM student WHERE email = '{$email}' AND enroll_status = 0";
+  $sql = "SELECT * FROM student WHERE Account_Id = '{$account_id}' AND enroll_status = 0";
 
   $result = $conn->query($sql);
   $conn->close();

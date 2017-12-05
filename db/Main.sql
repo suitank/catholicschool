@@ -836,8 +836,6 @@ CREATE TABLE `account` (
   `Account_Id` bigint(20) unsigned NOT NULL,
   `Parent_or_Guardian_1_Contact_Information_Id` int(11) DEFAULT NULL,
   `Parent_or_Guardian_2_Contact_Information_Id` int(11) DEFAULT NULL,
-  `account_balance_due` varchar(45) DEFAULT NULL,
-  `active` tinyint(4) DEFAULT NULL,
   PRIMARY KEY (`Account_Id`),
   KEY `fk_Account_ContactPerson1_idx` (`Parent_or_Guardian_1_Contact_Information_Id`),
   KEY `fk_Account_ContactPerson2_idx` (`Parent_or_Guardian_2_Contact_Information_Id`),
@@ -853,7 +851,7 @@ CREATE TABLE `account` (
 
 LOCK TABLES `account` WRITE;
 /*!40000 ALTER TABLE `account` DISABLE KEYS */;
-INSERT INTO `account` VALUES (10,1,2,'0',1),(20,10,NULL,'0',1),(30,11,NULL,'0',1);
+INSERT INTO `account` VALUES (10,1,2),(20,10,NULL),(30,11,NULL);
 /*!40000 ALTER TABLE `account` ENABLE KEYS */;
 UNLOCK TABLES;
 
